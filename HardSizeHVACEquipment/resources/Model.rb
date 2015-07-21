@@ -12,7 +12,7 @@ class OpenStudio::Model::Model
       puts "failed to apply sizing values for '#{name}' because sql file missing"
       return false
     end
-  
+
     # Zone equipment
     # Air terminals
     self.getAirTerminalSingleDuctParallelPIUReheats.each {|obj| obj.applySizingValues}
@@ -30,10 +30,11 @@ class OpenStudio::Model::Model
     # TODO Zone Exhaust Fan
     # TODO four pipe fan coil
     # TODO water to air heat pump
-    # TODO var flow radiant
+    # var flow radiant
+    self.getZoneHVACLowTempRadiantVarFlows.each {|obj| obj.applySizingValues}
     # TODO const flow radiant
     # TODO electric radiant
-     
+
     # AirLoopHVAC components
     self.getAirLoopHVACs.each {|obj| obj.applySizingValues}
     # fans
@@ -53,7 +54,7 @@ class OpenStudio::Model::Model
     self.getControllerOutdoorAirs.each {|obj| obj.applySizingValues}
     # TODO evap cooler
     # TODO heat exchanger sensbile and latent
-    
+
     # PlantLoop components
     self.getPlantLoops.each {|obj| obj.applySizingValues}
     # Pumps
@@ -71,15 +72,15 @@ class OpenStudio::Model::Model
     # TODO two speed cooling towers
     # Misc
     # TODO ground heat exchanger?
-    
+
     # VRF components
     # TODO VRF system
     # TODO VRF terminal
-    
+
     # Refrigeration components
-    
+
     return true
-    
+
   end
 
 end
