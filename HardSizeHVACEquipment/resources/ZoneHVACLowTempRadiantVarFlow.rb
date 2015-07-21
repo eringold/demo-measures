@@ -21,7 +21,7 @@ class OpenStudio::Model::ZoneHVACLowTempRadiantVarFlow
     maximum_hot_water_flow = self.autosizedMaximumHotWaterFlow
     if maximum_hot_water_flow.is_initialized
       h_coil = self.heatingCoil.to_CoilHeatingLowTempRadiantVarFlow.get
-      h_coil.setMinimumHotWaterFlow(minimum_hot_water_flow.get)
+      h_coil.setMaximumHotWaterFlow(maximum_hot_water_flow.get)
     end
 
 
