@@ -6,39 +6,39 @@ class OpenStudio::Model::FanVariableVolume
   # and puts them into this object model in place of the autosized fields.
   # Must have previously completed a run with sql output for this to work.
   def applySizingValues
-    
+
     maximum_flow_rate = self.autosizedMaximumFlowRate
     if maximum_flow_rate.is_initialized
       self.setMaximumFlowRate(maximum_flow_rate.get)
     end
-    
+
   end
-  
+
   # returns the autosized maximum flow rate as an optional double
   def autosizedMaximumFlowRate
 
     result = OpenStudio::OptionalDouble.new()
 
     name = self.name.get.upcase
-    
+
     model = self.model
-    
+
     sql = model.sqlFile
-    
+
     if sql.is_initialized
       sql = sql.get
-    
-      query = "SELECT Value 
-              FROM tabulardatawithstrings 
-              WHERE ReportName='ComponentSizingSummary' 
-              AND ReportForString='Entire Facility' 
-              AND TableName='Fan:VariableVolume' 
-              AND RowName='#{name}' 
-              AND ColumnName='Maximum Flow Rate' 
+
+      query = "SELECT Value
+              FROM tabulardatawithstrings
+              WHERE ReportName='ComponentSizingSummary'
+              AND ReportForString='Entire Facility'
+              AND TableName='Fan:VariableVolume'
+              AND RowName='#{name}'
+              AND ColumnName='Design Size Maximum Flow Rate' 
               AND Units='m3/s'"
-              
+
       val = sql.execAndReturnFirstDouble(query)
-      
+
       if val.is_initialized
         result = OpenStudio::OptionalDouble.new(val.get)
       end
@@ -46,7 +46,7 @@ class OpenStudio::Model::FanVariableVolume
     end
 
     return result
-    
+
   end
 
 end

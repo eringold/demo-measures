@@ -34,6 +34,9 @@ class OpenStudio::Model::Model
     self.getZoneHVACLowTempRadiantVarFlows.each {|obj| obj.applySizingValues}
     # TODO const flow radiant
     # TODO electric radiant
+    # TODO fluid heat exchanger
+
+
 
     # AirLoopHVAC components
     self.getAirLoopHVACs.each {|obj| obj.applySizingValues}

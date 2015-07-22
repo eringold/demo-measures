@@ -9,15 +9,15 @@ class OpenStudio::Model::PumpConstantSpeed
 
     rated_flow_rate = self.autosizedRatedFlowRate
     if rated_flow_rate.is_initialized
-      self.setRatedFlowRate(rated_flow_rate.get) 
+      self.setRatedFlowRate(rated_flow_rate.get)
     end
-    
+
     rated_power_consumption = self.autosizedRatedPowerConsumption
     if rated_power_consumption.is_initialized
       self.setRatedPowerConsumption(rated_power_consumption.get)
     end
-    
-    
+
+
   end
 
   # returns the autosized rated flow rate as an optional double
@@ -26,33 +26,33 @@ class OpenStudio::Model::PumpConstantSpeed
     result = OpenStudio::OptionalDouble.new()
 
     name = self.name.get.upcase
-    
+
     model = self.model
-    
+
     sql = model.sqlFile
-    
+
     if sql.is_initialized
       sql = sql.get
-    
-      query = "SELECT Value 
-              FROM tabulardatawithstrings 
-              WHERE ReportName='ComponentSizingSummary' 
-              AND ReportForString='Entire Facility' 
-              AND TableName='Pump:ConstantSpeed' 
-              AND RowName='#{name}' 
-              AND ColumnName='Rated Flow Rate' 
+
+      query = "SELECT Value
+              FROM tabulardatawithstrings
+              WHERE ReportName='ComponentSizingSummary'
+              AND ReportForString='Entire Facility'
+              AND TableName='Pump:ConstantSpeed'
+              AND RowName='#{name}'
+              AND ColumnName='Design Size Rated Flow Rate'
               AND Units='m3/s'"
-              
+
       val = sql.execAndReturnFirstDouble(query)
-      
+
       if val.is_initialized
         result = OpenStudio::OptionalDouble.new(val.get)
       end
- 
+
     end
 
     return result
-    
+
   end
 
   # returns the autosized rated power consumption as an optional double
@@ -61,34 +61,34 @@ class OpenStudio::Model::PumpConstantSpeed
     result = OpenStudio::OptionalDouble.new()
 
     name = self.name.get.upcase
-    
+
     model = self.model
-    
+
     sql = model.sqlFile
-    
+
     if sql.is_initialized
       sql = sql.get
-    
-      query = "SELECT Value 
-              FROM tabulardatawithstrings 
-              WHERE ReportName='ComponentSizingSummary' 
-              AND ReportForString='Entire Facility' 
-              AND TableName='Pump:ConstantSpeed' 
-              AND RowName='#{name}' 
-              AND ColumnName='Rated Power Consumption' 
+
+      query = "SELECT Value
+              FROM tabulardatawithstrings
+              WHERE ReportName='ComponentSizingSummary'
+              AND ReportForString='Entire Facility'
+              AND TableName='Pump:ConstantSpeed'
+              AND RowName='#{name}'
+              AND ColumnName='Design Size Rated Power Consumption' 
               AND Units='W'"
-              
+
       val = sql.execAndReturnFirstDouble(query)
-      
+
       if val.is_initialized
         result = OpenStudio::OptionalDouble.new(val.get)
       end
-    
+
     end
 
     return result
-    
-  end  
-  
-  
+
+  end
+
+
 end
